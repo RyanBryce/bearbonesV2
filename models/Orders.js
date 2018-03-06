@@ -22,11 +22,7 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false
       }
     });
-    Orders.hasMany(models.OrderProd, {
-      foreignKey: {
-        allowNull: false
-      }
-    });
+    Orders.hasMany(models.OrderProd);
   };
 
   return Orders;
