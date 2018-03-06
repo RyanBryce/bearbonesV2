@@ -38,10 +38,10 @@ module.exports = {
                 email: dbData.dataValues.email,
                 profilePic: dbData.dataValues.profilePic
               }
+              //here the session's user object is updated with the users data. we can hit our /session endpoing witha  get request from the front end and get our user object.
+              req.session.user = userObj;
               //we update the loggedIn key to have a true value. we can use this value on the fron end to see if the user is logged in or not.
               req.session.user.loggedIn = true;
-              //here the session's user object is updated with the users data. we can hit our /session endpoing witha  get request from the front end and get our user object.
-              req.session.user.currentUser = userObj;
 
               console.log(dbData.dataValues)
               res.status(200).send('Successful login')
@@ -51,7 +51,7 @@ module.exports = {
       });
   },
 
-  signUp: function (req, res, next) {
+  signUp: function (req, res, next) { 
     console.log(req.body)
     //to store a hased password into the database we need to first salt our password. this will tell bcrypt how many time to pass through the users password to generate the hash
     bcrypt.genSalt(10, function (err, salt) {
@@ -67,11 +67,23 @@ module.exports = {
             email: dbData.dataValues.email,
             profilePic: dbData.dataValues.profilePic
           }
+          req.session.user = userObj;
           req.session.user.loggedIn = true;
-          req.session.user.currentUser = userObj;
-          res.json(dbData);
+          res.status(200).json(dbData);
         });
       });
     });
+  },
+  logout: function(req, res){
+    req.session.user = {
+      id: null,
+      name: '',
+      username: '',
+      email: '',
+      profilePic: null
+    }
+    req.session.user.loggedIn = false;
+    req.session.user.isAdmin = false;
+    res.status(200).json("logged out");
   }
 }
