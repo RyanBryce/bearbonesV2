@@ -44,7 +44,7 @@ module.exports = {
               req.session.user.loggedIn = true;
 
               console.log(dbData.dataValues)
-              res.status(200).send('Successful login')
+              res.status(200).send(req.session.user)
             }
           });
         }
@@ -69,7 +69,7 @@ module.exports = {
           }
           req.session.user = userObj;
           req.session.user.loggedIn = true;
-          res.status(200).json(dbData);
+          res.status(200).json(req.session.user);
         });
       });
     });
@@ -84,6 +84,6 @@ module.exports = {
     }
     req.session.user.loggedIn = false;
     req.session.user.isAdmin = false;
-    res.status(200).json("logged out");
+    res.status(200).json(req.session.user);
   }
 }
