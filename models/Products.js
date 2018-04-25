@@ -76,10 +76,14 @@ module.exports = function (sequelize, DataTypes) {
     },
     
   });
+  console.log(Products);
   Products.associate = function (models) {
     // Associating Products with Orders
     // When an Products is deleted, also delete any associated Orders
-    Products.hasMany(models.Orders);
+    Products.belongsToMany(models.Orders, {
+      through: models.OrderProd,
+      foreignKey:  'productId'
+    });
   };
   return Products;
 };

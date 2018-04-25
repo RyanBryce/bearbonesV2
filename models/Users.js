@@ -32,10 +32,8 @@ module.exports = function (sequelize, DataTypes) {
   Users.associate = function (models) {
     // Associating Users with Orders
     // When an Users is deleted, also delete any associated Orders
-    Users.hasMany(models.Orders, {
-      onDelete: "cascade"
-    });
-    Users.belongsTo(models.Address);
+    Users.hasMany(models.Orders);
+    Users.hasMany(models.Address);
   };
 
   return Users;

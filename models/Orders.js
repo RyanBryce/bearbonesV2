@@ -17,12 +17,10 @@ module.exports = function (sequelize, DataTypes) {
   Orders.associate = function (models) {
     // We're saying that a Orders should belong to an User
     // A Orders can't be created without an Users due to the foreign key constraint
-    Orders.belongsTo(models.Users, {
-      foreignKey: {
-        allowNull: false
-      }
+    Orders.belongsToMany(models.Products, {
+      through: models.OrderProd,
+      foreignKey: 'orderId'
     });
-    Orders.hasMany(models.OrderProd);
   };
 
   return Orders;

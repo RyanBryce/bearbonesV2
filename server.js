@@ -28,7 +28,10 @@ function userSetup(req, res, next) {
       name: '',
       username: '',
       email: '',
-      profilePic: null
+      profilePic: null,
+      loggedIn: false,
+      isAdmin: false,
+      cart: []
     }
     req.session.user.loggedIn = false;
     req.session.user.isAdmin = false;
@@ -49,7 +52,7 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
 
-require("./routes/apiRoutes")
+require("./routes/apiRoutes")(app)
 
 // Send every request to the React app
 // Define any API routes before this runs

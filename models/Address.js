@@ -38,11 +38,9 @@ module.exports = function (sequelize, DataTypes) {
     },
   });
 
-  Address.associate = function (models) {
-    // Associating Address with Orders
-    // When an Address is deleted, also delete any associated Orders
-    Address.hasMany(models.Users);
-  };
+  // Address.associate = function (models) {
+  //   Address.hasMany(models.Users);
+  // };
 
   return Address;
 };
